@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI-Powered Life Cycle Assessment tool for metallurgy and mining operations">
+    <meta name="author" content="LCA Metallurgy App">
+    <title>LCA Metallurgy Assessment Tool</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏭</text></svg>">
+    <!-- Remove the old style tag since we now use external CSS
+    -->
+    </style>
+</head>
+<body>
+    <div class="main-layout">
+        <div class="container">
+            <h1>AI-Powered LCA Tool for Metallurgy & Mining</h1>
+        
+        <form id="lcaForm">
+            <div class="form-group">
+                <label for="metalType" class="form-label required" data-tooltip="Select the type of metal for your LCA assessment">Metal Type:</label>
+                <select id="metalType" name="metalType" class="form-control" required>
+                    <option value="">Select metal type</option>
+                    <option value="aluminium">Aluminium</option>
+                    <option value="copper">Copper</option>
+                    <option value="steel">Steel</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="productionRoute" class="form-label required" data-tooltip="Choose between raw material processing or recycled material processing">Production Route:</label>
+                <select id="productionRoute" name="productionRoute" class="form-control" required>
+                    <option value="">Select production route</option>
+                    <option value="raw">Raw Material Processing</option>
+                    <option value="recycled">Recycled Material Processing</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="energyUse" class="form-label" data-tooltip="Optional: Specify energy consumption per kg of metal. If left blank, AI will estimate based on industry standards">Energy Use (kWh/kg):</label>
+                <input type="number" id="energyUse" name="energyUse" class="form-control" step="0.1" min="0" placeholder="Enter energy consumption (optional)">
+            </div>
+            
+            <div class="form-group">
+                <label for="transportDistance" class="form-label" data-tooltip="Optional: Distance for material transport. AI will estimate if not provided">Transport Distance (km):</label>
+                <input type="number" id="transportDistance" name="transportDistance" class="form-control" step="0.1" min="0" placeholder="Enter transport distance (optional)">
+            </div>
+            
+            <div class="form-group">
+                <label for="endOfLife" class="form-label required" data-tooltip="Select what happens to the material at the end of its life cycle">End-of-Life Option:</label>
+                <select id="endOfLife" name="endOfLife" class="form-control" required>
+                    <option value="">Select end-of-life option</option>
+                    <option value="reuse">Reuse</option>
+                    <option value="recycle">Recycle</option>
+                    <option value="landfill">Landfill</option>
+                </select>
+            </div>
+            
+            <div class="form-buttons">
+                <button type="submit" class="btn btn-primary">Calculate LCA</button>
+                <button type="button" class="btn btn-outline" onclick="startNewLCA()">New Calculation</button>
+            </div>
+        </form>
+        
+        <div class="loading" id="loading">
+            <p>Processing your request...</p>
+        </div>
+        
+        <div class="error" id="error"></div>
+        
+        <div class="results" id="results">
+            <h2>LCA Results</h2>
+            
+            <div id="enhancedParams">
+                <h3>AI-Enhanced Parameters</h3>
+                <p>The AI model has automatically filled in missing parameters based on industry standards and best practices.</p>
+                <div id="paramsList"></div>
+            </div>
+            
+            <h3>Environmental Impact Comparison</h3>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Pathway</th>
+                        <th>CO₂ Equivalent (kg CO₂/kg metal)</th>
+                        <th>Recycled Content (%)</th>
+                        <th>Reuse Potential (%)</th>
+                    </tr>
+                </thead>
+                <tbody id="comparisonTableBody">
+                </tbody>
+            </table>
+            
+            <div class="chart-container">
+                <h3>Impact Reduction Visualization</h3>
+                <canvas id="impactChart" width="600" height="300"></canvas>
+            </div>
+            
+            <div class="results-buttons">
+                <button id="generateReport" class="btn btn-primary" onclick="generatePDFReport()">📄 Generate PDF Report</button>
+                <button class="btn btn-outline" onclick="startNewLCA()">🔄 Start New LCA</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="history-panel">
+        <div class="history-header">
+            <h3>Calculation History</h3>
+            <div class="header-buttons">
+                <button class="btn btn-secondary btn-sm" onclick="startNewLCA()" title="Start a new LCA calculation">+ New LCA</button>
+                <button class="btn btn-danger btn-sm" onclick="clearAllHistory()" title="Clear all calculation history">Clear All</button>
+            </div>
+        </div>
+        <div id="historyContainer">
+            <div class="no-history">No previous calculations found</div>
+        </div>
+    </div>
+    
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <!-- Legacy functions removed - now handled by main.js -->
+</body>
+</html>
