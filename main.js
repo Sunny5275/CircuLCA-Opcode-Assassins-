@@ -8,7 +8,7 @@ class LCAApp {
     constructor() {
         this.currentResults = null;
         this.HISTORY_KEY = 'lca_calculation_history';
-        this.MAX_HISTORY_ITEMS = 10;
+        this.MAX_HISTORY_ITEMS = 20;
         this.isLoading = false;
         
         // Initialize the application
@@ -518,7 +518,7 @@ class LCAApp {
 
     // Draw chart grid
     drawChartGrid(ctx, margin, chartWidth, chartHeight) {
-        ctx.strokeStyle = '#e9ecef';
+        ctx.strokeStyle = '#efece9ff';
         ctx.lineWidth = 1;
         
         // Horizontal grid lines
@@ -574,7 +574,7 @@ class LCAApp {
                     requestAnimationFrame(animate);
                 } else {
                     // Draw final bar with border
-                    ctx.strokeStyle = '#fff';
+                    ctx.strokeStyle = '#c46161ff';
                     ctx.lineWidth = 2;
                     ctx.strokeRect(x, baseY - targetHeight, width, targetHeight);
                     ctx.shadowColor = 'transparent';
@@ -596,7 +596,7 @@ class LCAApp {
         ctx.fillText(pathwayName, x + width / 2, baseY + 20);
         
         // CO2 value
-        ctx.fillStyle = '#fff';
+        ctx.fillStyle = '#ffffffff';
         ctx.font = 'bold 14px Segoe UI';
         ctx.fillText(
             `${pathway.co2_equivalent.toFixed(1)} kg CO₂`, 
